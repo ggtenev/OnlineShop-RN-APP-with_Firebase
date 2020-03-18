@@ -15,9 +15,8 @@ export default function ProductsOverview({ navigation }) {
   const dispatch = useDispatch()
   const products = useSelector(state => state.products.availableProducts)
   
-  
   useEffect(() => {
-   dispatch(productActions.fetchProducts())
+      dispatch(productActions.fetchProducts())
   },[dispatch])
 
   if(!products.length){
