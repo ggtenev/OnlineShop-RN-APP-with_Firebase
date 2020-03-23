@@ -28,7 +28,6 @@ export const fetchProducts = () => {
     }
   } catch (err) {
     throw err
-
   }
 }
 
@@ -71,8 +70,9 @@ export const createProduct = (title, imgURL, price, description) => {
   }
 }
 export const updateProduct = (title, imgURL, price, description, id) => {
-  return async (dispatch) => {
-    await fetch(`https://shopapp-rn-dce35.firebaseio.com/products/${id}.json`, {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token
+    await fetch(`https://shopapp-rn-dce35.firebaseio.com/products/${id}.json?auth=${token}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

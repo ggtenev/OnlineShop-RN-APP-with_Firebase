@@ -1,6 +1,7 @@
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createSwitchNavigator } from 'react-navigation'
 import React from 'react'
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Platform } from 'react-native'
@@ -12,6 +13,7 @@ import CartScreen from '../screens/shop/CartScreen'
 import OrderScreen from '../screens/shop/OrderScreen'
 import UserProducts from '../screens/user/UserProducts'
 import EditProduct from '../screens/user/EditProduct'
+import AuthScreen from '../screens/user/AuthScreen'
 
 defaultOptions = {
   headerTitleAlign: 'center',
@@ -68,4 +70,15 @@ const MyDrawerNavigator = createDrawerNavigator({
   }
 });
 
-export default createAppContainer(MyDrawerNavigator);
+// const AuthNavigator = createStackNavigator({
+//   Auth:AuthScreen
+// },{
+//   defaultNavigationOptions: defaultOptions,
+// })
+
+const MainNavigator = createSwitchNavigator({
+  Auth:AuthScreen,
+  Shop:MyDrawerNavigator
+})
+
+export default createAppContainer(MainNavigator);

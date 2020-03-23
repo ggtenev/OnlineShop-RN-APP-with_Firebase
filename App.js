@@ -12,11 +12,13 @@ import Navigator from './navigation/Navigator'
 import productReducer from './store/recucers/index'
 import cartReducer from './store/recucers/cart'
 import orderReducer from './store/recucers/order'
+import authReducer from './store/recucers/auth'
 
 const rootReducer = combineReducers({
   products: productReducer,
   cart:cartReducer,
-  orders:orderReducer
+  orders:orderReducer,
+  auth:authReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
@@ -24,7 +26,9 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 const fetchFonts = () => {
   return Font.loadAsync({
     'open-sans':require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold':require('./assets/fonts/OpenSans-Bold.ttf')
+    'open-sans-bold':require('./assets/fonts/OpenSans-Bold.ttf'),
+    Roboto: require('native-base/Fonts/Roboto.ttf'),
+    Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
   })
 }
 

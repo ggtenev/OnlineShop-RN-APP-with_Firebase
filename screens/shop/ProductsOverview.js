@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Text, ActivityIndicator, TouchableOpacity, Platform,Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import * as cartActions from '../../store/actions/cart'
@@ -11,17 +11,28 @@ import * as productActions from '../../store/actions/products'
 import ProductItem from '../../components/ProductItem'
 
 export default function ProductsOverview({ navigation }) {
+  const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
   const products = useSelector(state => state.products.availableProducts)
   
   useEffect(() => {
-      dispatch(productActions.fetchProducts())
+    const loadProducts = async () => {
+      setIsLoading(true)
+      await dispatch(productActions.fetchProducts())
+      setIsLoading(false)
+    }
+    loadProducts()
   },[dispatch])
 
-  if(!products.length){
+  if(isLoading){
     return <View style={{flex:1, justifyContent:'center'}}>
       <ActivityIndicator size='large'/>
+    </View>
+  } 
+  if(!products.length){
+    return <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+      <Text style={{fontWeight:'bold',fontSize:18}}>No products </Text>
     </View>
   } 
 
